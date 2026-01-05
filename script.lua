@@ -1,5 +1,4 @@
 _G.EspEnabled = false
-_G.EspVisibleCheck = false
 
 local Players = game:GetService("Players")
 local RunService = game:GetService("RunService")
@@ -8,22 +7,9 @@ local workspace = game:GetService("Workspace")
 function DeleteESP()
     for _, model in pairs(workspace:GetDescendants()) do
         if model:IsA("Model") then
-            local hl = model:FindFirstChild("Highlight", true)
+            local hl = model:FindFirstChild("Highlight")
             if hl then
                 hl:Destroy()
-            end
-        end
-    end
-end
-
-function ESPDethMode()
-    for _, model in pairs(workspace:GetDescendants()) do
-        if model:IsA("Model") then
-            local hl = model:FindFirstChild("Highlight", true)
-            if hl then
-                hl.DepthMode = _G.EspVisibleCheck == false
-                    and Enum.HighlightDepthMode.AlwaysOnTop
-                    or Enum.HighlightDepthMode.Occluded
             end
         end
     end
@@ -43,11 +29,11 @@ RunService.RenderStepped:Connect(function()
                         highlightclone.Name = "Highlight"
                         highlightclone.Adornee = v.Character
                         highlightclone.FillColor = toColor3(v.TeamColor)
-                        highlightclone.DepthMode = _G.EspVisibleCheck == false
-                            and Enum.HighlightDepthMode.AlwaysOnTop
-                            or Enum.HighlightDepthMode.Occluded
 
-                        -- 🔥 SATU-SATUNYA FIX (WAJIB)
+                        -- 🔒 TANPA WALL CHECK (SELALU TEMBUS)
+                        highlightclone.DepthMode = Enum.HighlightDepthMode.AlwaysOnTop
+
+                        -- FPS SAFE
                         highlightclone.Parent = v.Character
                     end
                 end)
@@ -56,4 +42,4 @@ RunService.RenderStepped:Connect(function()
     end
 end)
 
-print("ESP Module Loaded (FPS Safe)")
+print("ESP Loaded (No Wall Check, FPS Safe)")
